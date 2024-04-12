@@ -34,7 +34,7 @@ public class AppActivityTest2 {
     public void appActivityTest2() {
 
         try {
-            sleep(10000);
+            sleep(5000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
