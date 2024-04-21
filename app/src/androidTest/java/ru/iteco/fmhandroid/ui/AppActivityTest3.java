@@ -10,6 +10,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
+import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -53,23 +54,24 @@ public class AppActivityTest3 {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
-        ViewInteraction textInputEditText = onView(withId(R.id.login_text_input_layout));
-        textInputEditText.check(matches(isDisplayed()));
-        textInputEditText.perform(replaceText("login2"), closeSoftKeyboard());
-
-       // onView(withId(R.id.login_text_input_layout)).perform(typeText("login2"));
-
-        ViewInteraction textInputEditText2 = onView(withId(R.id.password_text_input_layout));
-        textInputEditText2.check(matches(isDisplayed()));
-        textInputEditText2.perform(replaceText("password2"), closeSoftKeyboard());
+        
+        onView(withHint("Login")).perform(typeText("login2"), closeSoftKeyboard());
+        onView(withHint("Password")).perform(typeText("password2"), closeSoftKeyboard());
 
         ViewInteraction materialButton = onView(withId(R.id.enter_button));
         materialButton.check(matches(isDisplayed()));
         materialButton.perform(click());
 
-        ViewInteraction textView = onView(withId(R.id.container_list_news_include_on_fragment_main));
-        textView.check(matches(isDisplayed()));
+        try {
+            sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        ViewInteraction textView = onView(
+                allOf(withText("News"),
+                        withParent(withParent(withId(R.id.container_list_news_include_on_fragment_main))),
+                        isDisplayed()));
         textView.check(matches(withText("News")));
     }
 
