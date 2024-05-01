@@ -3,8 +3,7 @@ package ru.iteco.fmhandroid.ui;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.replaceText;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
@@ -37,14 +36,14 @@ import ru.iteco.fmhandroid.R;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class AppActivityTest {
+public class ActiveNews {
 
     @Rule
     public ActivityScenarioRule<AppActivity> mActivityScenarioRule =
             new ActivityScenarioRule<>(AppActivity.class);
 
     @Test
-    public void appActivityTest() {
+    public void appActivityTest4() {
 
         try {
             sleep(5000);
@@ -52,39 +51,70 @@ public class AppActivityTest {
             throw new RuntimeException(e);
         }
 
-        ViewInteraction textInputEditText = onView(
-                allOf(childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.login_text_input_layout),
-                                        0),
+        ViewInteraction appCompatImageButton = onView(
+                allOf(withId(R.id.main_menu_image_button), withContentDescription("Main menu"),
+                        childAtPosition(
+                                allOf(withId(R.id.container_custom_app_bar_include_on_fragment_main),
+                                        childAtPosition(
+                                                withClassName(is("android.widget.LinearLayout")),
+                                                0)),
                                 0),
                         isDisplayed()));
-        textInputEditText.perform(replaceText("login2"), closeSoftKeyboard());
+        appCompatImageButton.perform(click());
 
-        ViewInteraction textInputEditText2 = onView(
-                allOf(childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.password_text_input_layout),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textInputEditText2.perform(replaceText("password2"), closeSoftKeyboard());
-
-        ViewInteraction materialButton = onView(
-                allOf(withId(R.id.enter_button), withText("Sign in"), withContentDescription("Save"),
+        ViewInteraction materialTextView = onView(
+                allOf(withId(android.R.id.title), withText("News"),
                         childAtPosition(
                                 childAtPosition(
-                                        withClassName(is("android.widget.RelativeLayout")),
-                                        1),
-                                2),
+                                        withId(android.R.id.content),
+                                        0),
+                                0),
+                        isDisplayed()));
+        materialTextView.perform(click());
+
+        ViewInteraction materialButton = onView(
+                allOf(withId(R.id.edit_news_material_button),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.container_list_news_include),
+                                        0),
+                                3),
                         isDisplayed()));
         materialButton.perform(click());
 
-        ViewInteraction textView = onView(
-                allOf(withText("News"),
-                        withParent(withParent(withId(R.id.container_list_news_include_on_fragment_main))),
+        ViewInteraction appCompatImageView = onView(
+                allOf(withId(R.id.edit_news_item_image_view), withContentDescription("News editing button"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.news_item_material_card_view),
+                                        0),
+                                15),
                         isDisplayed()));
-        textView.check(matches(withText("News")));
+        appCompatImageView.perform(click());
+
+        ViewInteraction switchMaterial = onView(
+                allOf(withId(R.id.switcher), withText("Active"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("com.google.android.material.card.MaterialCardView")),
+                                        0),
+                                5)));
+        switchMaterial.perform(scrollTo(), click());
+
+        ViewInteraction materialButton2 = onView(
+                allOf(withId(R.id.save_button), withText("Save"), withContentDescription("Save"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("com.google.android.material.card.MaterialCardView")),
+                                        0),
+                                6)));
+        materialButton2.perform(scrollTo(), click());
+
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.news_item_published_text_view), withText("NOT ACTIVE"),
+                        withParent(withParent(withId(R.id.news_item_material_card_view))),
+                        isDisplayed()));
+        textView.check(matches(withText("NOT ACTIVE")));
     }
 
     private static Matcher<View> childAtPosition(

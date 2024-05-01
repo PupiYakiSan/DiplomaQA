@@ -4,7 +4,6 @@ package ru.iteco.fmhandroid.ui;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -23,7 +22,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
-import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -32,6 +30,7 @@ import androidx.test.filters.LargeTest;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,21 +39,74 @@ import ru.iteco.fmhandroid.R;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class AppActivityTest3 {
+public class Authorization {
 
     @Rule
     public ActivityScenarioRule<AppActivity> mActivityScenarioRule =
             new ActivityScenarioRule<>(AppActivity.class);
 
     @Test
-    public void appActivityTest3() {
+    public void invalidLoginInvalidPassword() {
+        try {
+            sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        onView(withHint("Login")).perform(typeText("asdf"), closeSoftKeyboard());
+        onView(withHint("Password")).perform(typeText("qwerty"), closeSoftKeyboard());
+
+        ViewInteraction materialButton = onView(withId(R.id.enter_button));
+        materialButton.check(matches(isDisplayed()));
+        materialButton.perform(click());
+
+        try {
+            sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        ViewInteraction textView = onView(
+                allOf(withText("Authorization"),
+                        withParent(withParent(withId(R.id.nav_host_fragment))),
+                        isDisplayed()));
+        textView.check(matches(withText("Authorization")));
+    }
+
+    @Test
+    public void emptyLoginEmptyPassword() {
+        try {
+            sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        ViewInteraction materialButton = onView(withId(R.id.enter_button));
+        materialButton.check(matches(isDisplayed()));
+        materialButton.perform(click());
+
+        try {
+            sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        ViewInteraction textView = onView(
+                allOf(withText("Authorization"),
+                        withParent(withParent(withId(R.id.nav_host_fragment))),
+                        isDisplayed()));
+        textView.check(matches(withText("Authorization")));
+    }
+
+    @Test
+    public void validLoginValidPassword() {
 
         try {
             sleep(5000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        
+
         onView(withHint("Login")).perform(typeText("login2"), closeSoftKeyboard());
         onView(withHint("Password")).perform(typeText("password2"), closeSoftKeyboard());
 
