@@ -8,6 +8,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
+import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -42,6 +43,8 @@ public class ActiveNews {
     public ActivityScenarioRule<AppActivity> mActivityScenarioRule =
             new ActivityScenarioRule<>(AppActivity.class);
 
+    PageObject pageObject = new PageObject();
+
     @Test
     public void appActivityTest4() {
 
@@ -51,38 +54,40 @@ public class ActiveNews {
             throw new RuntimeException(e);
         }
 
-        ViewInteraction appCompatImageButton = onView(
-                allOf(withId(R.id.main_menu_image_button), withContentDescription("Main menu"),
-                        childAtPosition(
-                                allOf(withId(R.id.container_custom_app_bar_include_on_fragment_main),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.LinearLayout")),
-                                                0)),
-                                0),
-                        isDisplayed()));
-        appCompatImageButton.perform(click());
+        pageObject.menuPage("News");
+        onView(withId(R.id.edit_news_material_button)).perform(click());
 
-        ViewInteraction materialTextView = onView(
-                allOf(withId(android.R.id.title), withText("News"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                0),
-                        isDisplayed()));
-        materialTextView.perform(click());
+        pageObject.createNewsPositive();
 
-        ViewInteraction materialButton = onView(
-                allOf(withId(R.id.edit_news_material_button),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.container_list_news_include),
-                                        0),
-                                3),
-                        isDisplayed()));
-        materialButton.perform(click());
+        try {
+            sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
-        ViewInteraction appCompatImageView = onView(
+        onView(withText("Объявление")).perform(click());
+
+        try {
+            sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+      //  onView(withId(R.id.edit_news_item_image_view)).perform(click());
+
+      //  onView(withHint("News editing button")).perform(click());
+
+        // onView(withId(R.id.news_item_material_card_view)).perform(click());
+
+        onView(withContentDescription("News editing button")).perform(click());
+
+        try {
+            sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+  /*      ViewInteraction appCompatImageView = onView(
                 allOf(withId(R.id.edit_news_item_image_view), withContentDescription("News editing button"),
                         childAtPosition(
                                 childAtPosition(
@@ -90,7 +95,7 @@ public class ActiveNews {
                                         0),
                                 15),
                         isDisplayed()));
-        appCompatImageView.perform(click());
+        appCompatImageView.perform(click()); */
 
         ViewInteraction switchMaterial = onView(
                 allOf(withId(R.id.switcher), withText("Active"),
@@ -115,6 +120,54 @@ public class ActiveNews {
                         withParent(withParent(withId(R.id.news_item_material_card_view))),
                         isDisplayed()));
         textView.check(matches(withText("NOT ACTIVE")));
+    }
+
+    @Test
+    public void delete() {
+
+        try {
+            sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        pageObject.menuPage("News");
+        onView(withId(R.id.edit_news_material_button)).perform(click());
+
+        pageObject.createNewsPositive();
+
+        try {
+            sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        onView(withText("Объявление")).perform(click());
+
+        try {
+            sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+      //  onView(allOf(withId(R.id.delete_news_item_image_view), isDisplayed())).perform(click());
+         onView(withId(R.id.delete_news_item_image_view)).perform(click());
+
+     //   onView(withId(R.id.delete_news_item_image_view)).perform(scrollTo(), click());
+
+        //  onView(withHint("News editing button")).perform(click());
+
+        // onView(withId(R.id.news_item_material_card_view)).perform(click());
+
+     //   onView(withContentDescription("News editing button")).perform(click());
+
+        try {
+            sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
     private static Matcher<View> childAtPosition(

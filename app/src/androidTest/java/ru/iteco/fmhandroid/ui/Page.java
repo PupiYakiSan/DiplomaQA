@@ -5,6 +5,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
@@ -15,6 +16,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.IsNot.not;
 
 import static java.lang.Thread.sleep;
 
@@ -31,6 +33,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.hamcrest.core.IsInstanceOf;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,144 +48,103 @@ public class Page {
     public ActivityScenarioRule<AppActivity> mActivityScenarioRule =
             new ActivityScenarioRule<>(AppActivity.class);
 
+    @Before
+    public void startPage() {
+        pageObject.loginIn();
+    }
+
+    PageObject pageObject = new PageObject();
+
     @Test
     public void pageQuoteTopic() {
 
-        try {
-            sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        ViewInteraction appCompatImageButton = onView(
-                allOf(withId(R.id.our_mission_image_button), withContentDescription("Our Mission"),
-                        childAtPosition(
-                                allOf(withId(R.id.container_custom_app_bar_include_on_fragment_main),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.LinearLayout")),
-                                                0)),
-                                6),
-                        isDisplayed()));
-        appCompatImageButton.perform(click());
-
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.our_mission_title_text_view), withText("Love is all"),
-                        withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class))),
-                        isDisplayed()));
-        textView.check(matches(withText("Love is all")));
+        onView(withId(R.id.our_mission_image_button)).perform(click());
+        onView(withId(R.id.our_mission_title_text_view)).check(matches(withText("Love is all")));
     }
 
     @Test
     public void pageAbout() {
 
-        try {
-            sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        ViewInteraction appCompatImageButton = onView(
-                allOf(withId(R.id.main_menu_image_button), withContentDescription("Main menu"),
-                        childAtPosition(
-                                allOf(withId(R.id.container_custom_app_bar_include_on_fragment_main),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.LinearLayout")),
-                                                0)),
-                                0),
-                        isDisplayed()));
-        appCompatImageButton.perform(click());
-
-        ViewInteraction materialTextView = onView(
-                allOf(withId(android.R.id.title), withText("About"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                0),
-                        isDisplayed()));
-        materialTextView.perform(click());
-
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.about_privacy_policy_label_text_view), withText("Privacy Policy:"),
-                        withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class))),
-                        isDisplayed()));
-        textView.check(matches(withText("Privacy Policy:")));
+        pageObject.menuPage("About");
+        onView(withId(R.id.about_privacy_policy_label_text_view))
+                .check(matches(withText("Privacy Policy:")));
     }
 
     @Test
-    public void pageNewPageAbout() {
+    public void pageNews() {
 
-        try {
-            sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        ViewInteraction appCompatImageButton = onView(
-                allOf(withId(R.id.main_menu_image_button), withContentDescription("Main menu"),
-                        childAtPosition(
-                                allOf(withId(R.id.container_custom_app_bar_include_on_fragment_main),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.LinearLayout")),
-                                                0)),
-                                0),
-                        isDisplayed()));
-        appCompatImageButton.perform(click());
-
-        ViewInteraction materialTextView = onView(
-                allOf(withId(android.R.id.title), withText("News"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                0),
-                        isDisplayed()));
-        materialTextView.perform(click());
-
-        ViewInteraction appCompatImageButton2 = onView(
-                allOf(withId(R.id.main_menu_image_button), withContentDescription("Main menu"),
-                        childAtPosition(
-                                allOf(withId(R.id.container_custom_app_bar_include_on_fragment_main),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.LinearLayout")),
-                                                0)),
-                                0),
-                        isDisplayed()));
-        appCompatImageButton2.perform(click());
-
-        ViewInteraction materialTextView2 = onView(
-                allOf(withId(android.R.id.title), withText("About"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                0),
-                        isDisplayed()));
-        materialTextView2.perform(click());
-
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.about_privacy_policy_label_text_view), withText("Privacy Policy:"),
-                        withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class))),
-                        isDisplayed()));
-        textView.check(matches(withText("Privacy Policy:")));
+        pageObject.menuPage("News");
+        onView(withText("News"))
+                .check(matches(isDisplayed()));
+        onView(withId(R.id.all_news_text_view)).check(matches(not(isDisplayed())));
     }
 
-    private static Matcher<View> childAtPosition(
-            final Matcher<View> parentMatcher, final int position) {
+    @Test
+    public void pageNewsPageAbout() {
 
-        return new TypeSafeMatcher<View>() {
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("Child at position " + position + " in parent ");
-                parentMatcher.describeTo(description);
-            }
+        pageObject.menuPage("News");
+        pageObject.menuPage("About");
+        onView(withId(R.id.about_privacy_policy_label_text_view))
+                .check(matches(withText("Privacy Policy:")));
+    }
 
-            @Override
-            public boolean matchesSafely(View view) {
-                ViewParent parent = view.getParent();
-                return parent instanceof ViewGroup && parentMatcher.matches(parent)
-                        && view.equals(((ViewGroup) parent).getChildAt(position));
-            }
-        };
+    @Test
+    public void pageNewsPageMain() {
+
+        pageObject.menuPage("News");
+        pageObject.menuPage("Main");
+        onView(withText("News"))
+                .check(matches(isDisplayed()));
+        onView(withId(R.id.all_news_text_view)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void pageQuoteTopicPageMain() {
+
+        onView(withId(R.id.our_mission_image_button)).perform(click());
+        pageObject.menuPage("Main");
+        onView(withText("News"))
+                .check(matches(isDisplayed()));
+        onView(withId(R.id.all_news_text_view)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void pageQuoteTopicPageNews() {
+
+        onView(withId(R.id.our_mission_image_button)).perform(click());
+        pageObject.menuPage("News");
+        onView(withText("News"))
+                .check(matches(isDisplayed()));
+        onView(withId(R.id.all_news_text_view)).check(matches(not(isDisplayed())));
+    }
+
+    @Test
+    public void pageQuoteTopicPageAbout() {
+
+        onView(withId(R.id.our_mission_image_button)).perform(click());
+        pageObject.menuPage("About");
+        onView(withId(R.id.about_privacy_policy_label_text_view))
+                .check(matches(withText("Privacy Policy:")));
+    }
+
+    @Test
+    public void exitPageAbout() {
+
+        pageObject.menuPage("About");
+        onView(withId(R.id.about_back_image_button)).perform(click());
+        onView(withText("News"))
+                .check(matches(isDisplayed()));
+        onView(withId(R.id.all_news_text_view)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void pageAboutPageNews() {
+
+        pageObject.menuPage("About");
+        onView(withId(R.id.about_back_image_button)).perform(click());
+        pageObject.menuPage("News");
+        onView(withText("News"))
+                .check(matches(isDisplayed()));
+        onView(withId(R.id.all_news_text_view)).check(matches(not(isDisplayed())));
     }
 }

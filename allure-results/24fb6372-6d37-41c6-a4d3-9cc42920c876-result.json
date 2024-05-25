@@ -1,0 +1,53 @@
+{
+    "name": "canceledCreateNews",
+    "start": 1716654281290,
+    "stop": 1716654290739,
+    "stage": "finished",
+    "description": null,
+    "descriptionHtml": null,
+    "status": "passed",
+    "statusDetails": null,
+    "steps": [
+    ],
+    "attachments": [
+    ],
+    "parameters": [
+    ],
+    "uuid": "24fb6372-6d37-41c6-a4d3-9cc42920c876",
+    "historyId": "30c8051c9bb54fde6248350708fda83b",
+    "fullName": "ru.iteco.fmhandroid.ui.News.canceledCreateNews",
+    "labels": [
+        {
+            "name": "package",
+            "value": "ru.iteco.fmhandroid.ui"
+        },
+        {
+            "name": "testClass",
+            "value": "ru.iteco.fmhandroid.ui.News"
+        },
+        {
+            "name": "testMethod",
+            "value": "canceledCreateNews"
+        },
+        {
+            "name": "suite",
+            "value": "ru.iteco.fmhandroid.ui.News"
+        },
+        {
+            "name": "host",
+            "value": "localhost"
+        },
+        {
+            "name": "thread",
+            "value": "Instr: androidx.test.runner.AndroidJUnitRunner(7376)"
+        },
+        {
+            "name": "framework",
+            "value": "junit4"
+        },
+        {
+            "name": "language",
+            "value": "kotlin"
+        }
+    ]
+}
