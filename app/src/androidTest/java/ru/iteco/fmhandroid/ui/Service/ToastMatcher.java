@@ -1,4 +1,4 @@
-package ru.iteco.fmhandroid.ui;
+package ru.iteco.fmhandroid.ui.Service;
 
 import android.os.IBinder;
 import android.view.WindowManager;

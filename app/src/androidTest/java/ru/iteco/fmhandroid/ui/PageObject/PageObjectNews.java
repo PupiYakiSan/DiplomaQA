@@ -1,4 +1,4 @@
-package ru.iteco.fmhandroid.ui;
+package ru.iteco.fmhandroid.ui.PageObject;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.clearText;
@@ -6,76 +6,21 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
-import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.isNotChecked;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
-import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
-import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.is;
-import static java.lang.Thread.sleep;
 
-import static ru.iteco.fmhandroid.ui.Expectation.waitDisplayed;
-
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.test.espresso.RootViewException;
-import androidx.test.espresso.ViewInteraction;
-
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
+import static ru.iteco.fmhandroid.ui.Service.Expectation.waitDisplayed;
 
 import ru.iteco.fmhandroid.R;
 
-public class PageObject {
+public class PageObjectNews {
 
-    public void loginOut() {
-
-        try {
-            onView(isRoot()).perform(waitDisplayed(R.id.authorization_image_button, 5000));
-            onView(withId(R.id.authorization_image_button)).perform(click());
-            onView(withId(android.R.id.title)).perform(click());
-        } catch (Exception e){
-        }
-    }
-
-    public void loginIn() {
-
-        try {
-            onView(isRoot()).perform(waitDisplayed(R.id.enter_button, 5000));
-            authorization("login2", "password2");
-        } catch (Exception e){
-        }
-    }
-
-    public void authorization(String login, String password) {
-
-        onView(withHint("Login")).
-                perform(typeText(login), closeSoftKeyboard());
-        onView(withHint("Password")).
-                perform(typeText(password), closeSoftKeyboard());
-        onView(withId(R.id.enter_button)).perform(click());
-
-    }
-
-    public void menuPage(String page) {
-
-        onView(withId(R.id.main_menu_image_button)).perform(click());
-        onView(withText(page)).perform(click());
-    }
+    PageObjectPage pageObjectPage = new PageObjectPage();
 
     public void formCreating() {
-        menuPage("News");
+        pageObjectPage.menuPage("News");
         onView(withId(R.id.edit_news_material_button)).perform(click());
         onView(withId(R.id.add_news_image_view)).perform(click());
     }

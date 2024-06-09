@@ -1,4 +1,4 @@
-package ru.iteco.fmhandroid.ui;
+package ru.iteco.fmhandroid.ui.Service;
 
 
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -14,7 +14,6 @@ import androidx.test.espresso.util.HumanReadables;
 import androidx.test.espresso.util.TreeIterables;
 
 import java.util.concurrent.TimeoutException;
-import java.util.regex.Matcher;
 
 public class Expectation {
 

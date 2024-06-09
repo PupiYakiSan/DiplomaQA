@@ -1,4 +1,4 @@
-package ru.iteco.fmhandroid.ui;
+package ru.iteco.fmhandroid.ui.Test;
 
 
 import static androidx.test.espresso.Espresso.onView;
@@ -12,7 +12,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-import static java.lang.Thread.sleep;
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
@@ -24,10 +23,14 @@ import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import ru.iteco.fmhandroid.R;
+import ru.iteco.fmhandroid.ui.AppActivity;
+import ru.iteco.fmhandroid.ui.PageObject.PageObjectBefore;
+import ru.iteco.fmhandroid.ui.PageObject.PageObjectNews;
+import ru.iteco.fmhandroid.ui.Service.ToastMatcher;
 
 @LargeTest
 @RunWith(AllureAndroidJUnit4.class)
-public class News {
+public class NewsTest {
 
     @Rule
     public ActivityScenarioRule<AppActivity> mActivityScenarioRule =
@@ -35,10 +38,11 @@ public class News {
 
     @Before
     public void startPage() {
-        pageObject.loginIn();
+        pageObjectBefore.loginIn();
     }
 
-    PageObject pageObject = new PageObject();
+    PageObjectBefore pageObjectBefore = new PageObjectBefore();
+    PageObjectNews pageObjectNews = new PageObjectNews();
 
     private static final String toastMessage =
             "Fill empty fields";
@@ -48,14 +52,14 @@ public class News {
     @Test
     public void createNewsPositive() {
 
-        pageObject.createNewsPositive();
+        pageObjectNews.createNewsPositive();
         onView(withText("Control panel")).check(matches(withText("Control panel")));
     }
 
     @Test
     public void createNewsEmptyCategory() {
 
-        pageObject.createNewsNegative("Category");
+        pageObjectNews.createNewsNegative("Category");
         onView(withText(toastMessage)).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
     }
@@ -63,7 +67,7 @@ public class News {
     @Test
     public void createNewsEmptyTitle() {
 
-        pageObject.createNewsNegative("Title");
+        pageObjectNews.createNewsNegative("Title");
         onView(withText(toastMessage)).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
     }
@@ -71,7 +75,7 @@ public class News {
     @Test
     public void createNewsEmptyPublicationDate() {
 
-        pageObject.createNewsNegative("Publication date");
+        pageObjectNews.createNewsNegative("Publication date");
         onView(withText(toastMessage)).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
     }
@@ -79,7 +83,7 @@ public class News {
     @Test
     public void createNewsEmptyTime() {
 
-        pageObject.createNewsNegative("Time");
+        pageObjectNews.createNewsNegative("Time");
         onView(withText(toastMessage)).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
     }
@@ -87,7 +91,7 @@ public class News {
     @Test
     public void createNewsEmptyDescription() {
 
-        pageObject.createNewsNegative("Description");
+        pageObjectNews.createNewsNegative("Description");
         onView(withText(toastMessage)).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
     }
@@ -95,7 +99,7 @@ public class News {
     @Test
     public void createEmptyNewsAll() {
 
-        pageObject.formCreating();
+        pageObjectNews.formCreating();
         onView(withId(R.id.save_button)).perform(click());
         onView(withText(toastMessage)).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
@@ -104,7 +108,7 @@ public class News {
     @Test
     public void createNewsAnyCategory() {
 
-        pageObject.createNewsAnyCategory("test");
+        pageObjectNews.createNewsAnyCategory("test");
         onView(withText(toastMessageCategory)).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
     }
@@ -112,7 +116,7 @@ public class News {
     @Test
     public void canceledCreateNews() {
 
-        pageObject.formCreating();
+        pageObjectNews.formCreating();
 
         onView(withHint("Category")).perform(typeText("test"), closeSoftKeyboard());
         onView(withHint("Title")).perform(typeText("test"), closeSoftKeyboard());

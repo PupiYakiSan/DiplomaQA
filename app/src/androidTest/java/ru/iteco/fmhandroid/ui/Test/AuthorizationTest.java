@@ -1,4 +1,4 @@
-package ru.iteco.fmhandroid.ui;
+package ru.iteco.fmhandroid.ui.Test;
 
 
 import static androidx.test.espresso.Espresso.onView;
@@ -7,7 +7,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
 import org.junit.Before;
@@ -16,10 +15,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
+import ru.iteco.fmhandroid.ui.AppActivity;
+import ru.iteco.fmhandroid.ui.PageObject.PageObjectAuthorization;
+import ru.iteco.fmhandroid.ui.PageObject.PageObjectBefore;
+import ru.iteco.fmhandroid.ui.Service.ToastMatcher;
 
 @LargeTest
 @RunWith(AllureAndroidJUnit4.class)
-public class Authorization {
+public class AuthorizationTest {
 
     @Rule
     public ActivityScenarioRule<AppActivity> mActivityScenarioRule =
@@ -27,19 +30,20 @@ public class Authorization {
 
     @Before
     public void startPage() {
-        pageObject.loginOut();
+        pageObjectBefore.loginOut();
     }
 
     private static final String toastMessage =
             "Something went wrong. Try again later.";
     private static final String toastMessageEmpty =
             "Login and password cannot be empty";
-    PageObject pageObject = new PageObject();
+    PageObjectBefore pageObjectBefore = new PageObjectBefore();
+    PageObjectAuthorization pageObjectAuthorization = new PageObjectAuthorization();
 
     @Test
     public void invalidLoginInvalidPasswordOption1() {
 
-        pageObject.authorization("login3", "password3");
+        pageObjectAuthorization.authorization("login3", "password3");
         onView(withText(toastMessage)).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
     }
@@ -47,7 +51,7 @@ public class Authorization {
     @Test
     public void invalidLoginInvalidPasswordOption2() {
 
-        pageObject.authorization("Any", "qwerty");
+        pageObjectAuthorization.authorization("Any", "qwerty");
         onView(withText(toastMessage)).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
     }
@@ -55,7 +59,7 @@ public class Authorization {
     @Test
     public void invalidLoginValidPassword() {
 
-        pageObject.authorization("Any", "password2");
+        pageObjectAuthorization.authorization("Any", "password2");
         onView(withText(toastMessage)).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
     }
@@ -63,7 +67,7 @@ public class Authorization {
     @Test
     public void validLoginInvalidPassword() {
 
-        pageObject.authorization("login2", "qwerty");
+        pageObjectAuthorization.authorization("login2", "qwerty");
         onView(withText(toastMessage)).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
     }
@@ -71,7 +75,7 @@ public class Authorization {
     @Test
     public void emptyLoginEmptyPassword() {
 
-        pageObject.authorization("", "");
+        pageObjectAuthorization.authorization("", "");
         onView(withText(toastMessageEmpty)).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
     }
@@ -79,7 +83,7 @@ public class Authorization {
     @Test
     public void validLoginValidPassword() {
 
-        pageObject.authorization("login2", "password2");
+        pageObjectAuthorization.authorization("login2", "password2");
         onView(withText("News")).check(matches(isDisplayed()));
     }
 }
