@@ -10,6 +10,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isNotChecked;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withHint;
@@ -18,6 +19,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 import static java.lang.Thread.sleep;
+
+import static ru.iteco.fmhandroid.ui.Expectation.waitDisplayed;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,13 +42,7 @@ public class PageObject {
     public void loginOut() {
 
         try {
-            sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
-            onView(withText("News")).check(matches(isDisplayed()));
+            onView(isRoot()).perform(waitDisplayed(R.id.authorization_image_button, 5000));
             onView(withId(R.id.authorization_image_button)).perform(click());
             onView(withId(android.R.id.title)).perform(click());
         } catch (Exception e){
@@ -55,13 +52,7 @@ public class PageObject {
     public void loginIn() {
 
         try {
-            sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
-            onView(withText("Authorization")).check(matches(isDisplayed()));
+            onView(isRoot()).perform(waitDisplayed(R.id.enter_button, 5000));
             authorization("login2", "password2");
         } catch (Exception e){
         }
@@ -75,11 +66,6 @@ public class PageObject {
                 perform(typeText(password), closeSoftKeyboard());
         onView(withId(R.id.enter_button)).perform(click());
 
-        try {
-            sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public void menuPage(String page) {

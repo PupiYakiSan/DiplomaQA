@@ -26,7 +26,6 @@ import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import ru.iteco.fmhandroid.R;
 
 @LargeTest
-// @RunWith(AndroidJUnit4.class)
 @RunWith(AllureAndroidJUnit4.class)
 public class News {
 
