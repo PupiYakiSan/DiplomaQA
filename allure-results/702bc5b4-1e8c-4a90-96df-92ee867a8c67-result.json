@@ -1,0 +1,53 @@
+{
+    "name": "createNewsPositive",
+    "start": 1718188628786,
+    "stop": 1718188639315,
+    "stage": "finished",
+    "description": null,
+    "descriptionHtml": null,
+    "status": "passed",
+    "statusDetails": null,
+    "steps": [
+    ],
+    "attachments": [
+    ],
+    "parameters": [
+    ],
+    "uuid": "702bc5b4-1e8c-4a90-96df-92ee867a8c67",
+    "historyId": "1fe0d8255dbde0f9985badd03ee78941",
+    "fullName": "ru.iteco.fmhandroid.ui.Test.NewsTest.createNewsPositive",
+    "labels": [
+        {
+            "name": "package",
+            "value": "ru.iteco.fmhandroid.ui.Test"
+        },
+        {
+            "name": "testClass",
+            "value": "ru.iteco.fmhandroid.ui.Test.NewsTest"
+        },
+        {
+            "name": "testMethod",
+            "value": "createNewsPositive"
+        },
+        {
+            "name": "suite",
+            "value": "ru.iteco.fmhandroid.ui.Test.NewsTest"
+        },
+        {
+            "name": "host",
+            "value": "localhost"
+        },
+        {
+            "name": "thread",
+            "value": "Instr: androidx.test.runner.AndroidJUnitRunner(8546)"
+        },
+        {
+            "name": "framework",
+            "value": "junit4"
+        },
+        {
+            "name": "language",
+            "value": "kotlin"
+        }
+    ]
+}

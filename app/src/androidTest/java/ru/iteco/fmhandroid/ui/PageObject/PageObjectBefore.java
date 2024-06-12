@@ -7,6 +7,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static ru.iteco.fmhandroid.ui.Service.Expectation.waitDisplayed;
 
 import ru.iteco.fmhandroid.R;
+import ru.iteco.fmhandroid.ui.Service.DataHelper;
 
 public class PageObjectBefore {
     PageObjectAuthorization pageObjectAuthorization = new PageObjectAuthorization();
@@ -24,7 +25,8 @@ public class PageObjectBefore {
 
         try {
             onView(isRoot()).perform(waitDisplayed(R.id.enter_button, 5000));
-            pageObjectAuthorization.authorization("login2", "password2");
+            pageObjectAuthorization.authorization(DataHelper.getValidLogin(), DataHelper.getValidPassword());
+            onView(isRoot()).perform(waitDisplayed(R.id.authorization_image_button, 1000));
         } catch (Exception e){
         }
     }

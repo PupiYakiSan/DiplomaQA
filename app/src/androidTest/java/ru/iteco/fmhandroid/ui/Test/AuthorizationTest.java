@@ -18,6 +18,7 @@ import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.PageObject.PageObjectAuthorization;
 import ru.iteco.fmhandroid.ui.PageObject.PageObjectBefore;
+import ru.iteco.fmhandroid.ui.Service.DataHelper;
 import ru.iteco.fmhandroid.ui.Service.ToastMatcher;
 
 @LargeTest
@@ -40,18 +41,11 @@ public class AuthorizationTest {
     PageObjectBefore pageObjectBefore = new PageObjectBefore();
     PageObjectAuthorization pageObjectAuthorization = new PageObjectAuthorization();
 
+
     @Test
     public void invalidLoginInvalidPasswordOption1() {
 
-        pageObjectAuthorization.authorization("login3", "password3");
-        onView(withText(toastMessage)).inRoot(new ToastMatcher())
-                .check(matches(isDisplayed()));
-    }
-
-    @Test
-    public void invalidLoginInvalidPasswordOption2() {
-
-        pageObjectAuthorization.authorization("Any", "qwerty");
+        pageObjectAuthorization.authorization(DataHelper.getInvalidLogin(), DataHelper.getInvalidPassword());
         onView(withText(toastMessage)).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
     }
@@ -59,7 +53,7 @@ public class AuthorizationTest {
     @Test
     public void invalidLoginValidPassword() {
 
-        pageObjectAuthorization.authorization("Any", "password2");
+        pageObjectAuthorization.authorization(DataHelper.getInvalidLogin(), DataHelper.getValidPassword());
         onView(withText(toastMessage)).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
     }
@@ -67,9 +61,17 @@ public class AuthorizationTest {
     @Test
     public void validLoginInvalidPassword() {
 
-        pageObjectAuthorization.authorization("login2", "qwerty");
+        pageObjectAuthorization.authorization(DataHelper.getValidLogin(), DataHelper.getInvalidPassword());
         onView(withText(toastMessage)).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
+    }
+
+
+    @Test
+    public void validLoginValidPassword() {
+
+        pageObjectAuthorization.authorization(DataHelper.getValidLogin(), DataHelper.getValidPassword());
+        onView(withText("News")).check(matches(isDisplayed()));
     }
 
     @Test
@@ -81,9 +83,11 @@ public class AuthorizationTest {
     }
 
     @Test
-    public void validLoginValidPassword() {
+    public void invalidLoginInvalidPasswordOption2() {
 
-        pageObjectAuthorization.authorization("login2", "password2");
-        onView(withText("News")).check(matches(isDisplayed()));
+        pageObjectAuthorization.authorization("login3", "password3");
+        onView(withText(toastMessage)).inRoot(new ToastMatcher())
+                .check(matches(isDisplayed()));
     }
+
 }

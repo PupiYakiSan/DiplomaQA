@@ -1,7 +1,7 @@
 {
-    "name": "createNewsEmptyTime",
-    "start": 1716654290745,
-    "stop": 1716654301336,
+    "name": "pageNews",
+    "start": 1718188820132,
+    "stop": 1718188826489,
     "stage": "finished",
     "description": null,
     "descriptionHtml": null,
@@ -13,25 +13,25 @@
     ],
     "parameters": [
     ],
-    "uuid": "41a9bdec-6073-424b-9168-43f12251f307",
-    "historyId": "38b4df4b525fd9cd605dbcfe45087526",
-    "fullName": "ru.iteco.fmhandroid.ui.News.createNewsEmptyTime",
+    "uuid": "a89c7fc7-540b-488b-9207-5cb27bdb9ff7",
+    "historyId": "b1be5a02fbf045ad5e5cd3f18ead85e8",
+    "fullName": "ru.iteco.fmhandroid.ui.Test.PageTest.pageNews",
     "labels": [
         {
             "name": "package",
-            "value": "ru.iteco.fmhandroid.ui"
+            "value": "ru.iteco.fmhandroid.ui.Test"
         },
         {
             "name": "testClass",
-            "value": "ru.iteco.fmhandroid.ui.News"
+            "value": "ru.iteco.fmhandroid.ui.Test.PageTest"
         },
         {
             "name": "testMethod",
-            "value": "createNewsEmptyTime"
+            "value": "pageNews"
         },
         {
             "name": "suite",
-            "value": "ru.iteco.fmhandroid.ui.News"
+            "value": "ru.iteco.fmhandroid.ui.Test.PageTest"
         },
         {
             "name": "host",
@@ -39,7 +39,7 @@
         },
         {
             "name": "thread",
-            "value": "Instr: androidx.test.runner.AndroidJUnitRunner(7376)"
+            "value": "Instr: androidx.test.runner.AndroidJUnitRunner(8556)"
         },
         {
             "name": "framework",

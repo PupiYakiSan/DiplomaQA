@@ -1,7 +1,7 @@
 {
-    "name": "createNewsEmptyTitle",
-    "start": 1716654217730,
-    "stop": 1716654229808,
+    "name": "validLoginValidPassword",
+    "start": 1718188599811,
+    "stop": 1718188605803,
     "stage": "finished",
     "description": null,
     "descriptionHtml": null,
@@ -13,25 +13,25 @@
     ],
     "parameters": [
     ],
-    "uuid": "2c56a136-f068-4bb2-a80e-2fd9647aa2fe",
-    "historyId": "434f05ef3f98f47e392d108a5a27e82d",
-    "fullName": "ru.iteco.fmhandroid.ui.News.createNewsEmptyTitle",
+    "uuid": "7c531408-8075-457a-9507-4aec8d82f2df",
+    "historyId": "3cdd9af1e6b87eabdda78903c5cd0644",
+    "fullName": "ru.iteco.fmhandroid.ui.Test.AuthorizationTest.validLoginValidPassword",
     "labels": [
         {
             "name": "package",
-            "value": "ru.iteco.fmhandroid.ui"
+            "value": "ru.iteco.fmhandroid.ui.Test"
         },
         {
             "name": "testClass",
-            "value": "ru.iteco.fmhandroid.ui.News"
+            "value": "ru.iteco.fmhandroid.ui.Test.AuthorizationTest"
         },
         {
             "name": "testMethod",
-            "value": "createNewsEmptyTitle"
+            "value": "validLoginValidPassword"
         },
         {
             "name": "suite",
-            "value": "ru.iteco.fmhandroid.ui.News"
+            "value": "ru.iteco.fmhandroid.ui.Test.AuthorizationTest"
         },
         {
             "name": "host",
@@ -39,7 +39,7 @@
         },
         {
             "name": "thread",
-            "value": "Instr: androidx.test.runner.AndroidJUnitRunner(7376)"
+            "value": "Instr: androidx.test.runner.AndroidJUnitRunner(8536)"
         },
         {
             "name": "framework",
